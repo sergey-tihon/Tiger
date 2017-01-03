@@ -1,0 +1,19 @@
+FRAMEWORK: NET461
+NUGET
+  remote: https://www.nuget.org/api/v2
+    FAKE (4.47.2)
+    FSharp.Core (4.0.0.1) - redirects: force
+    FsLexYacc (6.1)
+      FsLexYacc.Runtime (>= 6.1)
+    FsLexYacc.Runtime (7.0.3)
+      FSharp.Core (>= 3.1.2.5)
+
+GROUP Tests
+FRAMEWORK: NET461
+NUGET
+  remote: https://www.nuget.org/api/v2
+    Argu (3.7)
+    Expecto (2.4)
+      Argu (>= 3.2)
+      FSharp.Core (>= 3.1.2.5)
+    FSharp.Core (4.0.0.1)

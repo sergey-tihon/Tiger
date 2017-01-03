@@ -1,0 +1,94 @@
+{
+
+module Lexer
+
+// Opens methods related to fslex.exe
+open Microsoft.FSharp.Text.Lexing
+open System
+open Parser
+
+exception SyntaxError of string
+
+let lexeme (lexbuf : LexBuffer<char>) = new System.String(lexbuf.Lexeme)
+
+}
+
+let letter = ['a'-'z' 'A'-'Z']
+let identifier = letter (letter | '_')*
+
+rule tokenize = parse
+    // --------------------------
+    | [' ' '\t']        	{ tokenize lexbuf }
+    | ('\n' | '\r' '\n')  { tokenize lexbuf }
+    | eof                 { EOF }
+
+    | "/*"                { multi_line_comment lexbuf }
+    | '"'                 { read_string "" false lexbuf }
+    // --------------------------
+    | "type"         { TYPE }
+    | "var"          { VAR }
+    | "function"     { FUNCTION }
+    | "break"        { BREAK }
+    | "of"           { OF }
+    | "end"          { END }
+    | "in"           { IN }
+    | "nil"          { NIL }
+    | "let"          { LET }
+    | "do"           { DO }
+    | "to"           { TO }
+    | "for"          { FOR }
+    | "while"        { WHILE }
+    | "else"         { ELSE }
+    | "if"           { IF }
+    | "then"         { THEN }
+    | "array"        { ARRAY }
+
+    | ":="           { ASSIGN }
+    | "|"            { OR }
+    | "&"            { AND }
+    | ">="           { GE }
+    | ">"            { GT }
+    | "<="           { LE }
+    | "<"            { LT }
+    | "<>"           { NEQ }
+    | "="            { EQ }
+
+    | "/"            { DIVIDE }
+    | "*"            { TIMES }
+    | "+"            { PLUS }
+    | "-"            { MINUS }
+    | "."            { DOT }
+
+    | "{"            { LBRACE }
+    | "}"            { RBRACE }
+    | "["            { LBRACK }
+    | "]"            { RBRACK }
+    | "("            { LPAREN }
+    | ")"            { RPAREN }
+
+    | ";"            { SEMICOLON }
+    | ":"            { COLON }
+    | ","            { COMMA }
+
+    // --------------------------
+    | ['0'-'9']+          { INT(int(lexeme lexbuf)) }
+    | identifier          { ID(lexeme lexbuf) }
+    // --------------------------
+    | _
+      { let pos = lexbuf.StartPos
+        failwithf "ParseError(%d,%d):'%A'"
+            pos.Line pos.Column (lexeme lexbuf) }
+
+// TODO: support nedted commentd
+and multi_line_comment = parse
+    | "*/"            { tokenize lexbuf }
+    | ('\n' | '\r' '\n')
+      { multi_line_comment lexbuf }
+    | eof             { failwith "Multi-line comment is not terminated" }
+    | _               { multi_line_comment lexbuf }
+
+and read_string str ignorequote = parse
+    | '"'             { if ignorequote then (read_string (str+"\\\"") false lexbuf) else STRING (str) }
+    | '\\'            { read_string str true lexbuf }
+    | [^ '"' '\\']+   { read_string (str+(lexeme lexbuf)) false lexbuf }
+    | eof             { failwith "String is not terminated" }

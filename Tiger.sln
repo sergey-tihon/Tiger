@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "TigerCompiler", "src\TigerCompiler\TigerCompiler.fsproj", "{096968B7-5289-4499-8112-D35BF0C6BEAF}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "TigerCompiler.Tests", "tests\TigerCompiler.Tests\TigerCompiler.Tests.fsproj", "{8BFC4870-D117-4F6A-A2BC-C15217EE0F0F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".paket", ".paket", "{2A99B20A-F7DB-437C-BBAF-7EA5F4A1CB0A}"
+	ProjectSection(SolutionItems) = preProject
+		build.fsx = build.fsx
+		paket.dependencies = paket.dependencies
+		paket.lock = paket.lock
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{096968B7-5289-4499-8112-D35BF0C6BEAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{096968B7-5289-4499-8112-D35BF0C6BEAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{096968B7-5289-4499-8112-D35BF0C6BEAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{096968B7-5289-4499-8112-D35BF0C6BEAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BFC4870-D117-4F6A-A2BC-C15217EE0F0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BFC4870-D117-4F6A-A2BC-C15217EE0F0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BFC4870-D117-4F6A-A2BC-C15217EE0F0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BFC4870-D117-4F6A-A2BC-C15217EE0F0F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

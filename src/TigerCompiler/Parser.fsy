@@ -1,0 +1,38 @@
+%{
+
+open System
+open Ast
+
+%}
+
+// The start token becomes a parser function in the compiled code:
+%start start
+
+// These are the terminal tokens of the grammar along with the types of
+// the data carried by each token:
+%token TYPE VAR FUNCTION BREAK OF END IN NIL
+%token LET DO TO FOR WHILE ELSE IF THEN ARRAY
+%token ASSIGN OR AND GE GT LE LT NEQ EQ
+%token DIVIDE TIMES PLUS MINUS DOT
+%token LBRACE RBRACE LBRACK RBRACK LPAREN RPAREN
+%token SEMICOLON COLON COMMA
+%token EOF
+
+%token <System.String> STRING
+%token <System.Int32> INT
+%token <System.String> ID
+
+// This is the type of the data produced by a successful reduction of the 'start'
+// symbol:
+%type < int > start
+
+%%
+
+// These are the rules of the grammar along with the F# code of the
+// actions executed as rules are reduced.  In this case the actions
+// produce data using F# data construction terms.
+start: Prog { $1 }
+
+Prog: EOF { 2 }
+
+// TODO: implement parser

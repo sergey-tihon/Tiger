@@ -1,0 +1,4 @@
+﻿FsLexYacc.Runtime
+group Tests
+    Expecto
+    FSharp.Core

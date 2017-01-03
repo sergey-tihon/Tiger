@@ -1,0 +1,10 @@
+source https://www.nuget.org/api/v2
+framework: net461
+nuget FAKE
+nuget FSharp.Core redirects:force
+nuget FsLexYacc 6.1
+
+group Tests
+    source https://www.nuget.org/api/v2
+    framework: net461
+    nuget Expecto
