@@ -1,46 +1,48 @@
-// include Fake libs
-#r "./packages/FAKE/tools/FakeLib.dll"
+#r @"paket:
+source https://nuget.org/api/v2
+framework netstandard2.0
+nuget Fake.Core.Target
+nuget Fake.DotNet.Cli
+nuget Fake.DotNet.Testing.Expecto //"
+
+#if !FAKE
+#load "./.fake/build.fsx/intellisense.fsx"
+#r "netstandard" // Temp fix for https://github.com/fsharp/FAKE/issues/1985
+#endif
+
+
+// --------------------------------------------------------------------------------------
+// FAKE build script
+// --------------------------------------------------------------------------------------
 
 open Fake
-open Fake.Testing.Expecto
-
-// Default target configuration
-let configuration = "Release"
-let vsProjProps =
-#if MONO
-    [ ("DefineConstants","MONO"); ("Configuration", configuration) ]
-#else
-    [ ("Configuration", configuration); ("Platform", "Any CPU") ]
-#endif
-
-// Filesets
-let solutionFile = "Tiger.sln"
-let testExecutables = !! "tests/**/bin/Release/*Tests*.exe"
-
+open Fake.Core
+open Fake.Core.TargetOperators
+open Fake.DotNet
+open Fake.IO
+open Fake.IO.Globbing.Operators
 
 // Targets
-Target "Clean" (fun _ ->
-#if MONO
-    ()
-#else
-    !! solutionFile |> MSBuildReleaseExt "" vsProjProps "Clean" |> ignore
-#endif
+Target.create "Clean" (fun _ ->
+    Shell.cleanDirs
+      [
+        "src/TigerCompiler/bin/"
+        "src/TigerCompiler/obj/"
+        "tests/TigerCompiler.Tests/bin/"
+        "tests/TigerCompiler.Tests/obj/"
+      ]
 )
 
-Target "Build" (fun _ ->
-    // compile all projects below src/app/
-    !! solutionFile
-    |> MSBuildReleaseExt "" vsProjProps "Rebuild"
-    |> Log "AppBuild-Output: "
+Target.create "Build" (fun _ ->
+    DotNet.exec id "build" "Tiger.sln -c Release" |> ignore
 )
 
-Target "RunTests" (fun _ ->
-    testExecutables
-    |> Expecto (fun p -> { p with Parallel = false } )
-    |> ignore
+Target.create "RunTests" (fun _ ->
+    !! "tests/**/bin/Release/**/*Tests*.dll"
+    |> Testing.Expecto.run (fun p -> { p with Parallel = false } )
 )
 
-Target "All" DoNothing
+Target.create "All" ignore
 
 // Build order
 "Clean"
@@ -49,4 +51,4 @@ Target "All" DoNothing
   ==> "All"
 
 // start build
-RunTargetOrDefault "All"
+Target.runOrDefault "All"

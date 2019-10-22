@@ -1,8 +1,7 @@
-FRAMEWORK: NET461
+RESTRICTION: == netcoreapp2.0
 NUGET
   remote: https://www.nuget.org/api/v2
-    FAKE (4.64.17)
-    FSharp.Core (4.7) - redirects: force
+    FSharp.Core (4.7)
     FsLexYacc (9.1)
       FSharp.Core (>= 4.3.4)
       FsLexYacc.Runtime (>= 9.1 < 9.2)
@@ -10,7 +9,7 @@ NUGET
       FSharp.Core (>= 4.3.4)
 
 GROUP Tests
-FRAMEWORK: NET461
+RESTRICTION: == netcoreapp2.0
 NUGET
   remote: https://www.nuget.org/api/v2
     Expecto (8.12)
