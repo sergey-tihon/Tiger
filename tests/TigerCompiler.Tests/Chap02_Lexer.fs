@@ -2,7 +2,7 @@
 
 open System
 open System.IO
-open Microsoft.FSharp.Text.Lexing
+open FSharp.Text.Lexing
 open Expecto
 
 [<Tests>]

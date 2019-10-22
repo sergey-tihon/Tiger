@@ -1,8 +1,8 @@
 source https://www.nuget.org/api/v2
 framework: net461
-nuget FAKE
+nuget FAKE ~> 4
 nuget FSharp.Core redirects:force
-nuget FsLexYacc 6.1
+nuget FsLexYacc
 
 group Tests
     source https://www.nuget.org/api/v2
