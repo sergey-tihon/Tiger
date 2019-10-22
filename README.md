@@ -1,8 +1,7 @@
 Modern Compiler Implementation in F#
 ------------------------------------
 
-[![Travis build status](https://travis-ci.org/sergey-tihon/Tiger.svg)](https://travis-ci.org/sergey-tihon/Tiger)
-[![AppVeyour Build status](https://ci.appveyor.com/api/projects/status/m5xeoiqp4hstwdta?svg=true)](https://ci.appveyor.com/project/sergey-tihon/tiger)
+[![Build Status](https://sergeytihon.visualstudio.com/Tiger/_apis/build/status/sergey-tihon.Tiger?branchName=master)](https://sergeytihon.visualstudio.com/Tiger/_build/latest?definitionId=6&branchName=master)
 
 This repo contains implementarion of "Tiger" compler in F#
 based on the materials from [Modern Compiler Implementation in ML](http://www.cs.princeton.edu/~appel/modern/ml/project.html)
