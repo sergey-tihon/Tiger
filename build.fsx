@@ -24,13 +24,14 @@ open Fake.IO.Globbing.Operators
 
 // Targets
 Target.create "Clean" (fun _ ->
-    Shell.cleanDirs
-      [
-        "src/TigerCompiler/bin/"
-        "src/TigerCompiler/obj/"
-        "tests/TigerCompiler.Tests/bin/"
-        "tests/TigerCompiler.Tests/obj/"
-      ]
+    // Shell.cleanDirs
+    //   [
+    //     "src/TigerCompiler/bin/"
+    //     "src/TigerCompiler/obj/"
+    //     "tests/TigerCompiler.Tests/bin/"
+    //     "tests/TigerCompiler.Tests/obj/"
+    //   ]
+    ()
 )
 
 Target.create "Build" (fun _ ->

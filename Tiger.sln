@@ -1,36 +1,121 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "TigerCompiler", "src\TigerCompiler\TigerCompiler.fsproj", "{096968B7-5289-4499-8112-D35BF0C6BEAF}"
+# Visual Studio 15
+VisualStudioVersion = 15.0.26124.0
+MinimumVisualStudioVersion = 15.0.26124.0
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "TigerCompiler", "src\TigerCompiler\TigerCompiler.fsproj", "{5642AEEE-0D06-42CC-905E-E3EB93BDCF8D}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "TigerCompiler.Tests", "tests\TigerCompiler.Tests\TigerCompiler.Tests.fsproj", "{8BFC4870-D117-4F6A-A2BC-C15217EE0F0F}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "TigerCompiler.Tests", "tests\TigerCompiler.Tests\TigerCompiler.Tests.fsproj", "{D6FD0C26-1AF6-472C-BA2E-EC7FA14CD6FE}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".paket", ".paket", "{2A99B20A-F7DB-437C-BBAF-7EA5F4A1CB0A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "global", "global", "{74503C7D-2AD9-449F-A398-9F35052F4907}"
 	ProjectSection(SolutionItems) = preProject
-		build.fsx = build.fsx
-		paket.dependencies = paket.dependencies
 		paket.lock = paket.lock
+		paket.dependencies = paket.dependencies
+		global.json = global.json
 		README.md = README.md
+		build.fsx = build.fsx
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{926465DF-AD3F-4494-AB72-C66F60D3E38B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5DB63ABD-137B-41F5-A798-6537A9C5A35F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "testcases", "testcases", "{D0846E86-B4BD-46A7-9A5E-A89D391B0D78}"
+	ProjectSection(SolutionItems) = preProject
+		tests\testcases\test6.tig = tests\testcases\test6.tig
+		tests\testcases\merge.tig = tests\testcases\merge.tig
+		tests\testcases\queens.tig = tests\testcases\queens.tig
+		tests\testcases\test1.tig = tests\testcases\test1.tig
+		tests\testcases\test2.tig = tests\testcases\test2.tig
+		tests\testcases\test3.tig = tests\testcases\test3.tig
+		tests\testcases\test4.tig = tests\testcases\test4.tig
+		tests\testcases\test5.tig = tests\testcases\test5.tig
+		tests\testcases\test7.tig = tests\testcases\test7.tig
+		tests\testcases\test8.tig = tests\testcases\test8.tig
+		tests\testcases\test9.tig = tests\testcases\test9.tig
+		tests\testcases\test10.tig = tests\testcases\test10.tig
+		tests\testcases\test11.tig = tests\testcases\test11.tig
+		tests\testcases\test12.tig = tests\testcases\test12.tig
+		tests\testcases\test13.tig = tests\testcases\test13.tig
+		tests\testcases\test14.tig = tests\testcases\test14.tig
+		tests\testcases\test15.tig = tests\testcases\test15.tig
+		tests\testcases\test16.tig = tests\testcases\test16.tig
+		tests\testcases\test17.tig = tests\testcases\test17.tig
+		tests\testcases\test18.tig = tests\testcases\test18.tig
+		tests\testcases\test19.tig = tests\testcases\test19.tig
+		tests\testcases\test20.tig = tests\testcases\test20.tig
+		tests\testcases\test21.tig = tests\testcases\test21.tig
+		tests\testcases\test22.tig = tests\testcases\test22.tig
+		tests\testcases\test23.tig = tests\testcases\test23.tig
+		tests\testcases\test24.tig = tests\testcases\test24.tig
+		tests\testcases\test25.tig = tests\testcases\test25.tig
+		tests\testcases\test26.tig = tests\testcases\test26.tig
+		tests\testcases\test27.tig = tests\testcases\test27.tig
+		tests\testcases\test28.tig = tests\testcases\test28.tig
+		tests\testcases\test29.tig = tests\testcases\test29.tig
+		tests\testcases\test30.tig = tests\testcases\test30.tig
+		tests\testcases\test31.tig = tests\testcases\test31.tig
+		tests\testcases\test32.tig = tests\testcases\test32.tig
+		tests\testcases\test33.tig = tests\testcases\test33.tig
+		tests\testcases\test34.tig = tests\testcases\test34.tig
+		tests\testcases\test35.tig = tests\testcases\test35.tig
+		tests\testcases\test36.tig = tests\testcases\test36.tig
+		tests\testcases\test37.tig = tests\testcases\test37.tig
+		tests\testcases\test38.tig = tests\testcases\test38.tig
+		tests\testcases\test39.tig = tests\testcases\test39.tig
+		tests\testcases\test40.tig = tests\testcases\test40.tig
+		tests\testcases\test41.tig = tests\testcases\test41.tig
+		tests\testcases\test42.tig = tests\testcases\test42.tig
+		tests\testcases\test43.tig = tests\testcases\test43.tig
+		tests\testcases\test44.tig = tests\testcases\test44.tig
+		tests\testcases\test45.tig = tests\testcases\test45.tig
+		tests\testcases\test46.tig = tests\testcases\test46.tig
+		tests\testcases\test47.tig = tests\testcases\test47.tig
+		tests\testcases\test48.tig = tests\testcases\test48.tig
+		tests\testcases\test49.tig = tests\testcases\test49.tig
 	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{096968B7-5289-4499-8112-D35BF0C6BEAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{096968B7-5289-4499-8112-D35BF0C6BEAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{096968B7-5289-4499-8112-D35BF0C6BEAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{096968B7-5289-4499-8112-D35BF0C6BEAF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8BFC4870-D117-4F6A-A2BC-C15217EE0F0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8BFC4870-D117-4F6A-A2BC-C15217EE0F0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8BFC4870-D117-4F6A-A2BC-C15217EE0F0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8BFC4870-D117-4F6A-A2BC-C15217EE0F0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5642AEEE-0D06-42CC-905E-E3EB93BDCF8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5642AEEE-0D06-42CC-905E-E3EB93BDCF8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5642AEEE-0D06-42CC-905E-E3EB93BDCF8D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5642AEEE-0D06-42CC-905E-E3EB93BDCF8D}.Debug|x64.Build.0 = Debug|Any CPU
+		{5642AEEE-0D06-42CC-905E-E3EB93BDCF8D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5642AEEE-0D06-42CC-905E-E3EB93BDCF8D}.Debug|x86.Build.0 = Debug|Any CPU
+		{5642AEEE-0D06-42CC-905E-E3EB93BDCF8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5642AEEE-0D06-42CC-905E-E3EB93BDCF8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5642AEEE-0D06-42CC-905E-E3EB93BDCF8D}.Release|x64.ActiveCfg = Release|Any CPU
+		{5642AEEE-0D06-42CC-905E-E3EB93BDCF8D}.Release|x64.Build.0 = Release|Any CPU
+		{5642AEEE-0D06-42CC-905E-E3EB93BDCF8D}.Release|x86.ActiveCfg = Release|Any CPU
+		{5642AEEE-0D06-42CC-905E-E3EB93BDCF8D}.Release|x86.Build.0 = Release|Any CPU
+		{D6FD0C26-1AF6-472C-BA2E-EC7FA14CD6FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6FD0C26-1AF6-472C-BA2E-EC7FA14CD6FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6FD0C26-1AF6-472C-BA2E-EC7FA14CD6FE}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D6FD0C26-1AF6-472C-BA2E-EC7FA14CD6FE}.Debug|x64.Build.0 = Debug|Any CPU
+		{D6FD0C26-1AF6-472C-BA2E-EC7FA14CD6FE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D6FD0C26-1AF6-472C-BA2E-EC7FA14CD6FE}.Debug|x86.Build.0 = Debug|Any CPU
+		{D6FD0C26-1AF6-472C-BA2E-EC7FA14CD6FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6FD0C26-1AF6-472C-BA2E-EC7FA14CD6FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6FD0C26-1AF6-472C-BA2E-EC7FA14CD6FE}.Release|x64.ActiveCfg = Release|Any CPU
+		{D6FD0C26-1AF6-472C-BA2E-EC7FA14CD6FE}.Release|x64.Build.0 = Release|Any CPU
+		{D6FD0C26-1AF6-472C-BA2E-EC7FA14CD6FE}.Release|x86.ActiveCfg = Release|Any CPU
+		{D6FD0C26-1AF6-472C-BA2E-EC7FA14CD6FE}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D6FD0C26-1AF6-472C-BA2E-EC7FA14CD6FE} = {926465DF-AD3F-4494-AB72-C66F60D3E38B}
+		{5642AEEE-0D06-42CC-905E-E3EB93BDCF8D} = {5DB63ABD-137B-41F5-A798-6537A9C5A35F}
+		{D0846E86-B4BD-46A7-9A5E-A89D391B0D78} = {926465DF-AD3F-4494-AB72-C66F60D3E38B}
 	EndGlobalSection
 EndGlobal
