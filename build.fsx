@@ -21,6 +21,7 @@ let testExecutables = !! "tests/**/bin/Release/*Tests*.exe"
 // Targets
 Target "Clean" (fun _ ->
 #if MONO
+    ()
 #else
     !! solutionFile |> MSBuildReleaseExt "" vsProjProps "Clean" |> ignore
 #endif
