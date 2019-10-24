@@ -1,9 +1,9 @@
 source https://www.nuget.org/api/v2
-framework: netcoreapp2.0
+framework: netcoreapp3.0
 nuget FSharp.Core
-nuget FsLexYacc
+nuget FsLexYacc prerelease
 
 group Tests
     source https://www.nuget.org/api/v2
-    framework: netcoreapp2.0
+    framework: netcoreapp3.0
     nuget Expecto
