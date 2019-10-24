@@ -1,7 +1,7 @@
 source https://www.nuget.org/api/v2
 framework: netcoreapp3.0
 nuget FSharp.Core
-nuget FsLexYacc prerelease
+nuget FsLexYacc
 
 group Tests
     source https://www.nuget.org/api/v2
