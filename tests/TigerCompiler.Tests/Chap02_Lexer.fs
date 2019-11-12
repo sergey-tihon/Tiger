@@ -3,22 +3,25 @@
 open System
 open System.IO
 open FSharp.Text.Lexing
-open Expecto
+open NUnit.Framework
+open FsUnit
 
-[<Tests>]
-let lexerTests =
-    Config.TestCasesRoot
-    |> Directory.GetFiles
-    |> Array.toList
-    |> List.map (fun fname ->
-        testCase (sprintf "Tokenize(%s)" fname) <| fun _ ->
-            use reader = File.OpenText(fname)
-            let buffer = LexBuffer<char>.FromTextReader reader
-            let rec loop tokens =
-                match Lexer.tokenize buffer with
-                | Parser.EOF -> tokens
-                | x -> loop (x::tokens)
-            Expect.equal (loop [] |> List.isEmpty) false
-                         "Tokens list is not empty"
-       )
-    |> testList "Ch02/Lexer"
+let testCases = Config.TestCasesFiles
+
+[<Test; TestCaseSource("testCases")>]
+let lexerTest fname =
+    printfn "%s" <| File.ReadAllText(fname).TrimEnd()
+    printfn "========================================="
+
+    use reader = File.OpenText(fname)
+    let buffer = LexBuffer<char>.FromTextReader reader
+    let rec loop tokens =
+        match Lexer.tokenize buffer with
+        | Parser.EOF -> List.rev tokens
+        | x -> loop (x::tokens)
+    let tokens = loop []
+
+    printfn "%A" tokens
+    printfn "========================================="
+
+    tokens |> should not' (be Empty)

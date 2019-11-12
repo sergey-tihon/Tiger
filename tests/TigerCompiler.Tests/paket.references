@@ -1,4 +1,7 @@
 ﻿FsLexYacc.Runtime
 group Tests
-    Expecto
     FSharp.Core
+    Microsoft.NET.Test.Sdk
+    NUnit3TestAdapter
+    NUnit
+    FsUnit

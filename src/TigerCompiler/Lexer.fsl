@@ -1,8 +1,4 @@
 {
-
-module Lexer
-
-// Opens methods related to fslex.exe
 open FSharp.Text.Lexing
 open System
 open Parser
@@ -14,11 +10,12 @@ let lexeme (lexbuf : LexBuffer<char>) = new System.String(lexbuf.Lexeme)
 }
 
 let letter = ['a'-'z' 'A'-'Z']
-let identifier = letter (letter | '_')*
+let digit = ['0'-'9']
+let identifier = letter (letter | digit | '_')*
 
 rule tokenize = parse
     // --------------------------
-    | [' ' '\t']        	{ tokenize lexbuf }
+    | [' ' '\t']          { tokenize lexbuf }
     | ('\n' | '\r' '\n')  { tokenize lexbuf }
     | eof                 { EOF }
 
@@ -79,7 +76,7 @@ rule tokenize = parse
         failwithf "ParseError(%d,%d):'%A'"
             pos.Line pos.Column (lexeme lexbuf) }
 
-// TODO: support nedted commentd
+// TODO: support nested comments
 and multi_line_comment = parse
     | "*/"            { tokenize lexbuf }
     | ('\n' | '\r' '\n')

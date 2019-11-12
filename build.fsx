@@ -2,8 +2,7 @@
 source https://nuget.org/api/v2
 framework netstandard2.0
 nuget Fake.Core.Target
-nuget Fake.DotNet.Cli
-nuget Fake.DotNet.Testing.Expecto //"
+nuget Fake.DotNet.Cli //"
 
 #if !FAKE
 #load "./.fake/build.fsx/intellisense.fsx"
@@ -37,8 +36,7 @@ Target.create "Build" (fun _ ->
 )
 
 Target.create "RunTests" (fun _ ->
-    !! "tests/**/bin/Release/**/*Tests*.dll"
-    |> Testing.Expecto.run (fun p -> { p with Parallel = false } )
+    DotNet.test id "tests/TigerCompiler.Tests/"
 )
 
 Target.create "All" ignore

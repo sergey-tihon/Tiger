@@ -6,3 +6,8 @@ open System.IO
 let TestCasesRoot =
     __SOURCE_DIRECTORY__ + "/../testcases"
     |> Path.GetFullPath
+
+let TestCasesFiles =
+    TestCasesRoot
+    |> Directory.GetFiles
+    |> Array.sort
