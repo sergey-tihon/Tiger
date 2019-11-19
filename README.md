@@ -1,7 +1,7 @@
 Tiger Compiler in F#
 ====================================
 
-![Build Status](https://github.com/sergey-tihon/Tiger/workflows/Build%20and%20test/badge.svg?branch=master)
+[![Build Status](https://github.com/sergey-tihon/Tiger/workflows/Build%20and%20test/badge.svg?branch=master)](https://github.com/sergey-tihon/Tiger/actions?query=branch%3Amaster)
 
 This repo contains implementation of [Tiger compiler](https://www.lrde.epita.fr/~tiger/tiger.split/index.html#SEC_Contents) in F#
 based on the materials from [Modern Compiler Implementation in ML](http://www.cs.princeton.edu/~appel/modern/ml/project.html)
