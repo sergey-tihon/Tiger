@@ -1,9 +1,9 @@
-Modern Compiler Implementation in F#
+Tiger Compiler in F#
 ====================================
 
 [![Build Status](https://sergeytihon.visualstudio.com/Tiger/_apis/build/status/sergey-tihon.Tiger?branchName=master)](https://sergeytihon.visualstudio.com/Tiger/_build/latest?definitionId=6&branchName=master)
 
-This repo contains implementarion of "Tiger" compler in F#
+This repo contains implementation of [Tiger compiler](https://www.lrde.epita.fr/~tiger/tiger.split/index.html#SEC_Contents) in F#
 based on the materials from [Modern Compiler Implementation in ML](http://www.cs.princeton.edu/~appel/modern/ml/project.html)
 
 Notes for myself
@@ -16,3 +16,8 @@ Notes for myself
 - System.Reflection.Emit / ILGenerator - https://msdn.microsoft.com/en-us/library/system.reflection.emit.ilgenerator(v=vs.110).aspx
 - Mono.Cecil - https://www.mono-project.com/docs/tools+libraries/libraries/Mono.Cecil/
 - http://timjones.io/blog/archive/2014/09/13/writing-a-minic-to-msil-compiler-in-fsharp-part-5-code-generation
+
+
+- https://github.com/dotnet/fsharp/blob/master/src/fsharp/lex.fsl
+- https://github.com/dotnet/fsharp/blob/master/src/fsharp/pars.fsy
+
