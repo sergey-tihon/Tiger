@@ -6,9 +6,14 @@ open FSharp.Text.Lexing
 open NUnit.Framework
 open FsUnit
 
-let testCases = Config.TestCasesFiles
+let testCases =
+    Config.TestCasesFiles
+    |> Array.filter (fun path ->
+        let fileName = Path.GetFileName(path)
+        fileName <> "test49.tig" // error: syntax error, nil should not be preceded by type-id
+       )
 
-//[<Test; TestCaseSource("testCases")>]
+[<Test; TestCaseSource("testCases")>]
 let parserTest fname =
     printfn "%s" <| File.ReadAllText(fname).TrimEnd()
     printfn "========================================="
@@ -22,7 +27,7 @@ let parserTest fname =
 
 [<Test>]
 let parserTestManual () =
-    let text = "for x:=0 to 10 do (y:=42)"
+    let text = "for x:=0 to 10 do (y:= y + f(x))"
 
     printfn "%s" text
     printfn "========================================="
