@@ -18,3 +18,4 @@ Notes for myself
 - MiniC-to-MSIL compiler in F# - http://timjones.io/blog/archive/2014/09/13/writing-a-minic-to-msil-compiler-in-fsharp-part-5-code-generation
 - F# compiler [Lexer](https://github.com/dotnet/fsharp/blob/master/src/fsharp/lex.fsl) and [Parser](https://github.com/dotnet/fsharp/blob/master/src/fsharp/pars.fsy)
 - [Tiger in ML](https://github.com/steshaw/tiger-ml/)
+- [Kaleidoscope: Implementing a Language with LLVM in Objective Caml](http://llvm.org/docs/tutorial/index.html)

@@ -1,9 +1,9 @@
 ﻿module Tiger.Ast
 
 open FSharp.Text.Lexing
+open Tiger.Symbol
 
 type Pos = Position
-type Symbol = string
 
 type Var =
     | SimpleVar of symbol:Symbol * Pos
