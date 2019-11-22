@@ -17,6 +17,7 @@
     <Compile Include="Parser.fs" />
     <Compile Include="Lexer.fs" />
     <Compile Include="Types.fs" />
+    <Compile Include="Env.fs" />
     <Compile Include="TigerCompiler.fs" />
     <None Include="paket.references" />
   </ItemGroup>
