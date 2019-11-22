@@ -1,4 +1,4 @@
-﻿module Tiger.Ast
+﻿module Tiger.Absyn
 
 open FSharp.Text.Lexing
 open Tiger.Symbol

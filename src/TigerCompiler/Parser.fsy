@@ -2,7 +2,9 @@
 
 open System
 open Tiger
-open Tiger.Symbol
+
+module A = Absyn
+module S = Symbol
 
 %}
 
@@ -21,7 +23,7 @@ open Tiger.Symbol
 %token BREAK NIL
 %token FUNCTION VAR TYPE
 
-%type <Tiger.Ast.Exp> start
+%type <Tiger.Absyn.Exp> start
 
 %nonassoc ASSIGN
 %left AND OR
@@ -36,13 +38,13 @@ open Tiger.Symbol
 start: exp EOF { $1 }
 
 exp:
-    | lvalue    { Ast.VarExp($1) }
-    | NIL       { Ast.NilExp }
+    | lvalue    { A.VarExp($1) }
+    | NIL       { A.NilExp }
     | unitexp   { $1 }
-    | INT       { Ast.IntExp($1) }
-    | STRING    { Ast.StringExp($1, parseState.InputStartPosition(1)) }
+    | INT       { A.IntExp($1) }
+    | STRING    { A.StringExp($1, parseState.InputStartPosition(1)) }
     | MINUS exp     %prec UMINUS 
-        { Ast.OpExp(left = Ast.IntExp(0), oper = Ast.MinusOp, right = $2, pos = parseState.InputStartPosition(1)) }
+        { A.OpExp(left = A.IntExp(0), oper = A.MinusOp, right = $2, pos = parseState.InputStartPosition(1)) }
     | funcall   { $1 }
     | arith_exp { $1 }
     | comp_exp  { $1 }
@@ -50,30 +52,30 @@ exp:
     | record_create  { $1 }
     | array_create   { $1 }
     | lvalue ASSIGN exp
-        { Ast.AssignExp(var=$1, exp=$3, pos=parseState.InputStartPosition(1))}
+        { A.AssignExp(var=$1, exp=$3, pos=parseState.InputStartPosition(1))}
     | IF exp THEN exp ELSE exp
-        { Ast.IfExp($2, $4, Some($6), parseState.InputStartPosition(1)) }
+        { A.IfExp($2, $4, Some($6), parseState.InputStartPosition(1)) }
     | IF exp THEN exp
-        { Ast.IfExp($2, $4, None, parseState.InputStartPosition(1)) }
+        { A.IfExp($2, $4, None, parseState.InputStartPosition(1)) }
     | WHILE exp DO exp
-        { Ast.WhileExp($2, $4, parseState.InputStartPosition(1)) }
+        { A.WhileExp($2, $4, parseState.InputStartPosition(1)) }
     | FOR ID ASSIGN exp TO exp DO exp
-        { Ast.ForExp(var=(symbol $2), escape=ref true, lo=$4, hi=$6, body=$8, pos=parseState.InputStartPosition(1)) }
+        { A.ForExp(var=(S.symbol $2), escape=ref true, lo=$4, hi=$6, body=$8, pos=parseState.InputStartPosition(1)) }
     | BREAK
-        { Ast.BreakExp(parseState.InputStartPosition(1)) }
+        { A.BreakExp(parseState.InputStartPosition(1)) }
     | LET decs IN expseq END 
-        { Ast.LetExp(decs=$2, body=Ast.SeqExp($4), pos=parseState.InputStartPosition(1)) }
+        { A.LetExp(decs=$2, body=A.SeqExp($4), pos=parseState.InputStartPosition(1)) }
     | LPAREN expseq RPAREN
-        { Ast.SeqExp($2) }
+        { A.SeqExp($2) }
 
 decs:
     |          { [] }
     | decs dec { $1 @ [$2] }
 
 dec:
-    | tydeclist  { Ast.TypeDec($1) }
+    | tydeclist  { A.TypeDec($1) }
     | vardec     { $1 }
-    | fundeclist { Ast.FunctionDec($1) }
+    | fundeclist { A.FunctionDec($1) }
 
 tydeclist:
     | tydec           { [$1] }
@@ -81,19 +83,19 @@ tydeclist:
 
 tydec: 
     | TYPE ID EQ ty
-        { ((symbol $2), $4, parseState.InputStartPosition(1)) }
+        { ((S.symbol $2), $4, parseState.InputStartPosition(1)) }
 
 ty:
-    | ID                      { Ast.NameTy((symbol $1), parseState.InputStartPosition(1)) }
-    | LBRACE tyfields RBRACE  { Ast.RecordTy($2) }
-    | ARRAY OF ID             { Ast.ArrayTy((symbol $3), parseState.InputStartPosition(1)) }
+    | ID                      { A.NameTy((S.symbol $1), parseState.InputStartPosition(1)) }
+    | LBRACE tyfields RBRACE  { A.RecordTy($2) }
+    | ARRAY OF ID             { A.ArrayTy((S.symbol $3), parseState.InputStartPosition(1)) }
 
 tyfield: 
     | ID COLON ID
-        { {Ast.Field.name=(symbol $1);
-           Ast.Field.escape=(ref true);
-           Ast.Field.typ=(symbol $3);
-           Ast.Field.pos=parseState.InputStartPosition(1)} }
+        { {A.Field.name=(S.symbol $1);
+           A.Field.escape=(ref true);
+           A.Field.typ=(S.symbol $3);
+           A.Field.pos=parseState.InputStartPosition(1)} }
 
 tyfields:
     |                     { [] }
@@ -105,10 +107,10 @@ tyfields_nonempty:
 
 vardec:
     | VAR ID ASSIGN exp
-        { Ast.VarDec(name=(symbol $2), escape=(ref true), typ=None, init=$4, pos=parseState.InputStartPosition(1)) }
+        { A.VarDec(name=(S.symbol $2), escape=(ref true), typ=None, init=$4, pos=parseState.InputStartPosition(1)) }
     | VAR ID COLON ID ASSIGN exp
-        { Ast.VarDec(name=(symbol $2), escape=(ref true), 
-                     typ=Some(((symbol $4), parseState.InputStartPosition(4))),
+        { A.VarDec(name=(S.symbol $2), escape=(ref true), 
+                     typ=Some(((S.symbol $4), parseState.InputStartPosition(4))),
                      init=$6, pos=parseState.InputStartPosition(1)) }
 
 fundeclist:
@@ -117,17 +119,17 @@ fundeclist:
 
 fundec:
     | FUNCTION ID LPAREN tyfields RPAREN EQ exp
-        { {Ast.FunDec.name=(symbol $2); params'=$4;
+        { {A.FunDec.name=(S.symbol $2); params'=$4;
            result=None;
            body=$7; pos=parseState.InputStartPosition(1)} }
     | FUNCTION ID LPAREN tyfields RPAREN COLON ID EQ exp 
-        { {Ast.FunDec.name=(symbol $2); params'=$4;
-           result=Some ((symbol $7), parseState.InputStartPosition(7));
+        { {A.FunDec.name=(S.symbol $2); params'=$4;
+           result=Some ((S.symbol $7), parseState.InputStartPosition(7));
            body=$9; pos=parseState.InputStartPosition(1)} }
 
 record_create:
     | ID LBRACE record_create_list RBRACE
-        { Ast.RecordExp (fields=$3, typ=(symbol $1), pos=parseState.InputStartPosition(1)) }
+        { A.RecordExp (fields=$3, typ=(S.symbol $1), pos=parseState.InputStartPosition(1)) }
 
 record_create_list:
     |                             { [] }
@@ -141,21 +143,21 @@ record_create_list_nonempty:
 
 record_create_field: 
     | ID EQ exp
-        { ((symbol $1), $3, parseState.InputStartPosition(1)) }
+        { ((S.symbol $1), $3, parseState.InputStartPosition(1)) }
 
 array_create:
     | ID LBRACK exp RBRACK OF exp 
-        { Ast.ArrayExp (typ=(symbol $1), size=$3, init=$6, pos=parseState.InputStartPosition(1)) }
+        { A.ArrayExp (typ=(S.symbol $1), size=$3, init=$6, pos=parseState.InputStartPosition(1)) }
 
 expseq:
     | exp                     { [($1, parseState.InputStartPosition(1))] }
     | expseq SEMICOLON exp    { $1 @ [($3, parseState.InputStartPosition(3))] }
 
-unitexp: LPAREN RPAREN { Ast.NilExp }
+unitexp: LPAREN RPAREN { A.NilExp }
 
 funcall:
     | ID LPAREN explist RPAREN
-        { Ast.CallExp (func=(symbol $1), args=$3, pos=parseState.InputStartPosition(1)) }
+        { A.CallExp (func=(S.symbol $1), args=$3, pos=parseState.InputStartPosition(1)) }
 
 explist:
     |                     { [] }
@@ -166,29 +168,29 @@ explist_nonempty:
     | explist COMMA exp   { $1 @ [$3] }
 
 arith_exp:
-    | exp PLUS exp   { Ast.OpExp (left=$1, oper=Ast.PlusOp, right=$3, pos=parseState.InputStartPosition(1)) }
-    | exp MINUS exp  { Ast.OpExp (left=$1, oper=Ast.MinusOp, right=$3, pos=parseState.InputStartPosition(1)) }
-    | exp TIMES exp  { Ast.OpExp (left=$1, oper=Ast.TimesOp, right=$3, pos=parseState.InputStartPosition(1)) }
-    | exp DIVIDE exp { Ast.OpExp (left=$1, oper=Ast.DivideOp, right=$3, pos=parseState.InputStartPosition(1)) }
+    | exp PLUS exp   { A.OpExp (left=$1, oper=A.PlusOp, right=$3, pos=parseState.InputStartPosition(1)) }
+    | exp MINUS exp  { A.OpExp (left=$1, oper=A.MinusOp, right=$3, pos=parseState.InputStartPosition(1)) }
+    | exp TIMES exp  { A.OpExp (left=$1, oper=A.TimesOp, right=$3, pos=parseState.InputStartPosition(1)) }
+    | exp DIVIDE exp { A.OpExp (left=$1, oper=A.DivideOp, right=$3, pos=parseState.InputStartPosition(1)) }
 
 comp_exp:
-    | exp EQ exp   {Ast.OpExp (left=$1, oper=Ast.EqOp, right=$3, pos=parseState.InputStartPosition(1)) }
-    | exp NEQ exp  {Ast.OpExp (left=$1, oper=Ast.NeqOp, right=$3, pos=parseState.InputStartPosition(1)) }
-    | exp LT exp   {Ast.OpExp (left=$1, oper=Ast.LtOp, right=$3, pos=parseState.InputStartPosition(1)) }
-    | exp LE exp   {Ast.OpExp (left=$1, oper=Ast.LeOp, right=$3, pos=parseState.InputStartPosition(1)) }
-    | exp GT exp   {Ast.OpExp (left=$1, oper=Ast.GtOp, right=$3, pos=parseState.InputStartPosition(1)) }
-    | exp GE exp   {Ast.OpExp (left=$1, oper=Ast.GeOp, right=$3, pos=parseState.InputStartPosition(1)) }
+    | exp EQ exp   {A.OpExp (left=$1, oper=A.EqOp, right=$3, pos=parseState.InputStartPosition(1)) }
+    | exp NEQ exp  {A.OpExp (left=$1, oper=A.NeqOp, right=$3, pos=parseState.InputStartPosition(1)) }
+    | exp LT exp   {A.OpExp (left=$1, oper=A.LtOp, right=$3, pos=parseState.InputStartPosition(1)) }
+    | exp LE exp   {A.OpExp (left=$1, oper=A.LeOp, right=$3, pos=parseState.InputStartPosition(1)) }
+    | exp GT exp   {A.OpExp (left=$1, oper=A.GtOp, right=$3, pos=parseState.InputStartPosition(1)) }
+    | exp GE exp   {A.OpExp (left=$1, oper=A.GeOp, right=$3, pos=parseState.InputStartPosition(1)) }
 
 bool_exp:
-    | exp AND exp { Ast.IfExp (test=$1, then'=$3, else'=Some(Ast.IntExp(0)), pos=parseState.InputStartPosition(1)) }
-    | exp OR exp  { Ast.IfExp (test=$1, then'=Ast.IntExp(1), else'=Some($3), pos=parseState.InputStartPosition(1)) }
+    | exp AND exp { A.IfExp (test=$1, then'=$3, else'=Some(A.IntExp(0)), pos=parseState.InputStartPosition(1)) }
+    | exp OR exp  { A.IfExp (test=$1, then'=A.IntExp(1), else'=Some($3), pos=parseState.InputStartPosition(1)) }
 
 lvalue:
     | ID
-        { Ast.SimpleVar((symbol $1), parseState.InputStartPosition(1)) }
+        { A.SimpleVar((S.symbol $1), parseState.InputStartPosition(1)) }
     | ID LBRACK exp RBRACK
-        { Ast.SubscriptVar(Ast.SimpleVar((symbol $1), parseState.InputStartPosition(1)), $3, parseState.InputStartPosition(3)) }
+        { A.SubscriptVar(A.SimpleVar((S.symbol $1), parseState.InputStartPosition(1)), $3, parseState.InputStartPosition(3)) }
     | lvalue LBRACK exp RBRACK // (* redundant rule to disambiguate with array-creation-expression *)
-        { Ast.SubscriptVar($1, $3, parseState.InputStartPosition(1)) }
+        { A.SubscriptVar($1, $3, parseState.InputStartPosition(1)) }
     | lvalue DOT ID
-        { Ast.FieldVar($1, (symbol $3), parseState.InputStartPosition(1)) }
+        { A.FieldVar($1, (S.symbol $3), parseState.InputStartPosition(1)) }
