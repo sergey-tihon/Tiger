@@ -15,12 +15,12 @@ let symbol name :Symbol=
         nextSym <- i + 1
         hashtable.Add(name, i)
         (name, i)
-
+let name : Symbol -> string = fst
 
 type Table<'a> = Map<int,'a>
 
 let empty:Table<'a> = Map.empty
-let enter (key:Symbol) value (table:Table<'a>) :Table<'a> =
+let enter (table:Table<'a>, key:Symbol, value) :Table<'a> =
     Map.add (snd key) value table
-let look (key:Symbol) (table:Table<'a>) =
+let look (table:Table<'a>, key:Symbol) =
     Map.tryFind (snd key) table

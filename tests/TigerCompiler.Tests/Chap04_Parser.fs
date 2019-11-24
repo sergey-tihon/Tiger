@@ -21,13 +21,20 @@ let parserTest fname =
     use reader = File.OpenText(fname)
     let lexbuf = LexBuffer<char>.FromTextReader reader
     let ast = Parser.start Lexer.tokenize lexbuf
+    //Tiger.Semant.transProg ast
 
     printfn "%A" ast
     printfn "========================================="
 
 [<Test>]
 let parserTestManual () =
-    let text = "for x:=0 to 10 do (y:= y + f(x))"
+    let text = "
+let
+  type list = {first: int, rest: list}
+  function readlist() : list =
+    list{first=0,rest=readlist()}
+in ()
+end"
 
     printfn "%s" text
     printfn "========================================="
@@ -44,6 +51,7 @@ let parserTestManual () =
 
     let lexbuf = LexBuffer<char>.FromString text
     let ast = Parser.start Lexer.tokenize lexbuf
+    Tiger.Semant.transProg ast
 
     printfn "%A" ast
     printfn "========================================="
