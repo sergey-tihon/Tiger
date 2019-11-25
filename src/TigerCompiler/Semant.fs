@@ -12,7 +12,9 @@ module T = Types
 
 // TODO: Consider adding boolean type to the language
 
-type ExpTy = {exp: unit; ty: T.Ty}
+module Translate =
+    type Exp = unit
+type ExpTy = {exp: Translate.Exp; ty: T.Ty}
 
 let todoTy = T.INT
 let todoTrExp = ()
@@ -309,7 +311,6 @@ and transExp(tenv, venv, exp) =
 
         | A.LetExp(decs, body, pos) ->
             let (tenv',venv') = transDecs(tenv, venv, decs)
-            // TODO: The book has transExp(venv', tenv') body. Wonder if this makes it easier to map/app.
             transExp(tenv',venv', body)
 
         | A.SeqExp expList ->
@@ -323,7 +324,7 @@ and transExp(tenv, venv, exp) =
             match S.look(venv, id) with
             | Some(E.VarEntry(ty)) -> {exp=todoTrExp; ty=actualTy(pos, tenv, ty)}
             | Some(E.FunEntry _)   ->
-                error pos (sprintf "variable points to a function - compiler bug?: %s" (S.name id))
+                error pos (sprintf "variable points to a function: %s" (S.name id))
                 {exp=errorTrExp; ty=T.INT}
             | None ->
                 error pos (sprintf "undefined variable %s" (S.name id))

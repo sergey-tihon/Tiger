@@ -5,8 +5,6 @@ open Tiger
 module S = Symbol
 module T = Types
 
-type Access = unit // TODO:
-
 type EnvEntry =
     | VarEntry of ty: T.Ty
     | FunEntry of formals: T.Ty list * result: T.Ty
