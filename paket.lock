@@ -2,10 +2,10 @@ RESTRICTION: == net50
 NUGET
   remote: https://www.nuget.org/api/v2
     FSharp.Core (5.0)
-    FsLexYacc (10.1)
+    FsLexYacc (10.2.0-beta1)
       FSharp.Core (>= 4.5.2)
-      FsLexYacc.Runtime (>= 10.1 < 10.2)
-    FsLexYacc.Runtime (10.1)
+      FsLexYacc.Runtime (>= 10.2.0-beta1 < 10.3.0-beta)
+    FsLexYacc.Runtime (10.2.0-beta1)
       FSharp.Core (>= 4.5.2)
 
 GROUP Tests
