@@ -393,6 +393,7 @@ paket-files/
 
 # FAKE - F# Make
 .fake/
+.paket/
 
 # JetBrains Rider
 .idea/

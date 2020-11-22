@@ -1,7 +1,7 @@
-RESTRICTION: == netcoreapp3.0
+RESTRICTION: == net50
 NUGET
   remote: https://www.nuget.org/api/v2
-    FSharp.Core (4.7)
+    FSharp.Core (5.0)
     FsLexYacc (10.0)
       FSharp.Core (>= 4.3.4)
       FsLexYacc.Runtime (>= 10.0 < 10.1)
@@ -9,15 +9,15 @@ NUGET
       FSharp.Core (>= 4.3.4)
 
 GROUP Tests
-RESTRICTION: == netcoreapp3.0
+RESTRICTION: == net50
 NUGET
   remote: https://www.nuget.org/api/v2
-    FSharp.Core (4.7)
-    FsUnit (3.7)
-      FSharp.Core (>= 4.2.3)
+    FSharp.Core (5.0)
+    FsUnit (4.0.2)
+      FSharp.Core (>= 4.3.4)
       NETStandard.Library (>= 2.0.3)
       NUnit (>= 3.12 < 4.0)
-    Microsoft.CodeCoverage (16.4)
+    Microsoft.CodeCoverage (16.8)
     Microsoft.DotNet.InternalAbstractions (1.0)
       System.AppContext (>= 4.1)
       System.Collections (>= 4.0.11)
@@ -27,15 +27,15 @@ NUGET
       System.Runtime.Extensions (>= 4.1)
       System.Runtime.InteropServices (>= 4.1)
       System.Runtime.InteropServices.RuntimeInformation (>= 4.0)
-    Microsoft.NET.Test.Sdk (16.4)
-      Microsoft.CodeCoverage (>= 16.4)
-      Microsoft.TestPlatform.TestHost (>= 16.4)
+    Microsoft.NET.Test.Sdk (16.8)
+      Microsoft.CodeCoverage (>= 16.8)
+      Microsoft.TestPlatform.TestHost (>= 16.8)
     Microsoft.NETCore.Platforms (3.0)
     Microsoft.NETCore.Targets (3.0)
-    Microsoft.TestPlatform.ObjectModel (16.4)
+    Microsoft.TestPlatform.ObjectModel (16.8)
       NuGet.Frameworks (>= 5.0)
-    Microsoft.TestPlatform.TestHost (16.4)
-      Microsoft.TestPlatform.ObjectModel (>= 16.4)
+    Microsoft.TestPlatform.TestHost (16.8)
+      Microsoft.TestPlatform.ObjectModel (>= 16.8)
       Newtonsoft.Json (>= 9.0.1)
     Microsoft.Win32.Primitives (4.3)
       Microsoft.NETCore.Platforms (>= 1.1)
@@ -50,7 +50,7 @@ NUGET
     NuGet.Frameworks (5.3.1)
     NUnit (3.12)
       NETStandard.Library (>= 2.0)
-    NUnit3TestAdapter (3.15.1)
+    NUnit3TestAdapter (3.17)
       Microsoft.DotNet.InternalAbstractions (>= 1.0)
       System.ComponentModel.EventBasedAsync (>= 4.3)
       System.ComponentModel.TypeConverter (>= 4.3)
