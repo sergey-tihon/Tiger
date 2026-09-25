@@ -1,10 +1,28 @@
 Tiger Compiler in F#
 ====================================
 
-[![Build Status](https://github.com/sergey-tihon/Tiger/workflows/Build%20and%20test/badge.svg?branch=master)](https://github.com/sergey-tihon/Tiger/actions?query=branch%3Amaster)
+[![Build Status](https://github.com/sergey-tihon/Tiger/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/sergey-tihon/Tiger/actions?query=branch%3Amaster)
 
 This repo contains implementation of [Tiger compiler](https://www.lrde.epita.fr/~tiger/tiger.split/index.html#SEC_Contents) in F#
 based on the materials from [Modern Compiler Implementation in ML](http://www.cs.princeton.edu/~appel/modern/ml/project.html)
+
+Build and test
+--------------
+
+Requires .NET SDK 10.
+
+```sh
+dotnet build
+dotnet run --project tests/TigerCompiler.Tests   # Expecto test runner
+dotnet run --project src/TigerCompiler -- tests/testcases/queens.tig
+```
+
+Format code with [Fantomas](https://fsprojects.github.io/fantomas/) (CI runs `--check`):
+
+```sh
+dotnet tool restore
+dotnet fantomas src tests
+```
 
 Notes for myself
 ----------------
