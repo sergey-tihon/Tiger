@@ -16,17 +16,19 @@ type Ty =
     | NAME of Symbol.Symbol * (Ty option) ref
 
     override __.GetHashCode() = 0
+
     override this.Equals(thatObj) =
-        let eq (that:Ty) =
+        let eq (that: Ty) =
             match this, that with
             | INT, INT -> true
             | STRING, STRING -> true
-            | RECORD(_, x), RECORD(_,  y) -> x = y
-            | ARRAY(_,x), ARRAY(_,y) -> x=y
+            | RECORD(_, x), RECORD(_, y) -> x = y
+            | ARRAY(_, x), ARRAY(_, y) -> x = y
             | NIL, NIL -> true
             | UNIT, UNIT -> true
-            | NAME(s1,t1), NAME(s2,t2) -> s1=s2 && !t1 = !t2
+            | NAME(s1, t1), NAME(s2, t2) -> s1 = s2 && t1.Value = t2.Value
             | _ -> false
+
         match thatObj with
         | :? Ty as that -> eq that
         | _ -> false

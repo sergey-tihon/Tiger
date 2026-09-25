@@ -1,0 +1,72 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/global/">
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+    <File Path="global.json" />
+    <File Path="README.md" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/TigerCompiler/TigerCompiler.fsproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/TigerCompiler.Tests/TigerCompiler.Tests.fsproj" />
+  </Folder>
+  <Folder Name="/tests/testcases/">
+    <File Path="tests/testcases/merge.tig" />
+    <File Path="tests/testcases/queens.tig" />
+    <File Path="tests/testcases/test1.tig" />
+    <File Path="tests/testcases/test10.tig" />
+    <File Path="tests/testcases/test11.tig" />
+    <File Path="tests/testcases/test12.tig" />
+    <File Path="tests/testcases/test13.tig" />
+    <File Path="tests/testcases/test14.tig" />
+    <File Path="tests/testcases/test15.tig" />
+    <File Path="tests/testcases/test16.tig" />
+    <File Path="tests/testcases/test17.tig" />
+    <File Path="tests/testcases/test18.tig" />
+    <File Path="tests/testcases/test19.tig" />
+    <File Path="tests/testcases/test2.tig" />
+    <File Path="tests/testcases/test20.tig" />
+    <File Path="tests/testcases/test21.tig" />
+    <File Path="tests/testcases/test22.tig" />
+    <File Path="tests/testcases/test23.tig" />
+    <File Path="tests/testcases/test24.tig" />
+    <File Path="tests/testcases/test25.tig" />
+    <File Path="tests/testcases/test26.tig" />
+    <File Path="tests/testcases/test27.tig" />
+    <File Path="tests/testcases/test28.tig" />
+    <File Path="tests/testcases/test29.tig" />
+    <File Path="tests/testcases/test3.tig" />
+    <File Path="tests/testcases/test30.tig" />
+    <File Path="tests/testcases/test31.tig" />
+    <File Path="tests/testcases/test32.tig" />
+    <File Path="tests/testcases/test33.tig" />
+    <File Path="tests/testcases/test34.tig" />
+    <File Path="tests/testcases/test35.tig" />
+    <File Path="tests/testcases/test36.tig" />
+    <File Path="tests/testcases/test37.tig" />
+    <File Path="tests/testcases/test38.tig" />
+    <File Path="tests/testcases/test39.tig" />
+    <File Path="tests/testcases/test4.tig" />
+    <File Path="tests/testcases/test40.tig" />
+    <File Path="tests/testcases/test41.tig" />
+    <File Path="tests/testcases/test42.tig" />
+    <File Path="tests/testcases/test43.tig" />
+    <File Path="tests/testcases/test44.tig" />
+    <File Path="tests/testcases/test45.tig" />
+    <File Path="tests/testcases/test46.tig" />
+    <File Path="tests/testcases/test47.tig" />
+    <File Path="tests/testcases/test48.tig" />
+    <File Path="tests/testcases/test49.tig" />
+    <File Path="tests/testcases/test5.tig" />
+    <File Path="tests/testcases/test6.tig" />
+    <File Path="tests/testcases/test7.tig" />
+    <File Path="tests/testcases/test8.tig" />
+    <File Path="tests/testcases/test9.tig" />
+  </Folder>
+</Solution>

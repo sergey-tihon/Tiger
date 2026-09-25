@@ -1,7 +1,0 @@
-﻿FsLexYacc.Runtime
-group Tests
-    FSharp.Core
-    Microsoft.NET.Test.Sdk
-    NUnit3TestAdapter
-    NUnit
-    FsUnit

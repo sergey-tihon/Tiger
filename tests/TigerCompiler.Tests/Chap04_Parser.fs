@@ -1,57 +1,47 @@
 module Chap04_Parser
 
-open System
 open System.IO
 open FSharp.Text.Lexing
-open NUnit.Framework
-open FsUnit
+open Expecto
+open Swensen.Unquote
 
-let testCases =
-    Config.TestCasesFiles
-    |> Array.filter (fun path ->
-        let fileName = Path.GetFileName(path)
-        fileName <> "test49.tig" // error: syntax error, nil should not be preceded by type-id
-       )
+// test49.tig: syntax error, nil should not be preceded by type-id
+let private invalidSyntax = set [ "test49.tig" ]
 
-[<Test; TestCaseSource("testCases")>]
-let parserTest fname =
-    printfn "%s" <| File.ReadAllText(fname).TrimEnd()
-    printfn "========================================="
-
+let private parseFile (fname: string) =
     use reader = File.OpenText(fname)
     let lexbuf = LexBuffer<char>.FromTextReader reader
-    let ast = Parser.start Lexer.tokenize lexbuf
-    //Tiger.Semant.transProg ast
+    Parser.start Lexer.tokenize lexbuf
 
-    printfn "%A" ast
-    printfn "========================================="
-
-[<Test>]
-let parserTestManual () =
-    let text = "
+let private manualProgram =
+    """
 let
   type list = {first: int, rest: list}
   function readlist() : list =
     list{first=0,rest=readlist()}
 in ()
-end"
+end"""
 
-    printfn "%s" text
-    printfn "========================================="
+[<Tests>]
+let tests =
+    testList
+        "Parser"
+        [
+            for fname in Config.TestCasesFiles do
+                let name = Path.GetFileName fname
 
-    let lexbuf = LexBuffer<char>.FromString text
-    let rec loop tokens =
-        match Lexer.tokenize lexbuf with
-        | Parser.EOF as x -> List.rev <| x::tokens
-        | x -> loop (x::tokens)
-    let tokens = loop []
-    printfn "%A" tokens
-    printfn "========================================="
+                if not (invalidSyntax.Contains name) then
+                    testCase name (fun () -> parseFile fname |> ignore)
 
+            testCase "manual program lexes, parses and type-checks" (fun () ->
+                let rec loop lexbuf tokens =
+                    match Lexer.tokenize lexbuf with
+                    | Parser.EOF as x -> List.rev (x :: tokens)
+                    | x -> loop lexbuf (x :: tokens)
 
-    let lexbuf = LexBuffer<char>.FromString text
-    let ast = Parser.start Lexer.tokenize lexbuf
-    Tiger.Semant.transProg ast
+                let tokens = loop (LexBuffer<char>.FromString manualProgram) []
+                test <@ List.last tokens = Parser.EOF @>
 
-    printfn "%A" ast
-    printfn "========================================="
+                let ast = Parser.start Lexer.tokenize (LexBuffer<char>.FromString manualProgram)
+                Tiger.Semant.transProg ast)
+        ]

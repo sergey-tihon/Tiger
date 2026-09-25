@@ -15,18 +15,19 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest, macOS-latest]
-        dotnet: [5.0.301]
     runs-on: ${{ matrix.os }}
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v7
     - name: Setup .NET
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v6
       with:
-        dotnet-version: ${{ matrix.dotnet }}
-    - name: Install local tools
-      run: dotnet tool restore
-    - name: Paket restore
-      run: dotnet paket restore
+        global-json-file: global.json
+    - name: Check formatting
+      run: |
+        dotnet tool restore
+        dotnet fantomas --check src tests
     - name: Build
-      run: dotnet fake run build.fsx
+      run: dotnet build -c Release
+    - name: Test
+      run: dotnet run -c Release --no-build --project tests/TigerCompiler.Tests

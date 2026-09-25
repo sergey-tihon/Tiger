@@ -1,0 +1,10 @@
+<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageVersion Include="FsLexYacc" Version="13.0.0" />
+    <PackageVersion Include="Expecto" Version="11.1.0" />
+    <PackageVersion Include="Unquote" Version="7.0.1" />
+  </ItemGroup>
+</Project>
